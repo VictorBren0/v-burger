@@ -9,8 +9,11 @@ import { Input } from '../components/ui/Input'
 import { Button } from '../components/ui/Button'
 
 import { AuthContext } from '../contexts/AuthContext'
+import { toast } from "react-toastify"
 
 import Link from "next/link"
+
+import { canSSRGuest } from "../utils/canSSRGuest"
 
 export default function Home() {
   const { login } = useContext(AuthContext)
@@ -23,12 +26,20 @@ export default function Home() {
   async function handleLogin(event: FormEvent) {
     event.preventDefault()
 
+    if (email === '' || password === '') {
+      toast.error('Preencha todos os campos')
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password
     }
     await login(data)
 
+    setLoading(false);
   }
   return (
     <>
@@ -44,17 +55,17 @@ export default function Home() {
               placeholder="Digite seu email"
               type="text"
               value={email}
-              onChange={ (e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               placeholder="Digite sua senha"
               type="password"
               value={password}
-              onChange={ (e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
               type="submit"
-              Loading={false}
+              Loading={loading}
             >Acessar</Button>
           </form>
           <Link className={styles.text} href="/register">
@@ -65,3 +76,10 @@ export default function Home() {
     </>
   )
 }
+
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})
