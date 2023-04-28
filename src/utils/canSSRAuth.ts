@@ -1,5 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext } from "next";
 import { parseCookies, destroyCookie } from "nookies";
+import { AuthTokenError } from "../services/errors/AuthTokenError";
+
 
 //funcao para paginas que só podem ser acessadas por usuários autenticados
 export function canSSRAuth<P>(fn: GetServerSideProps<P>) {
