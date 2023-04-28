@@ -69,7 +69,7 @@ export default function Home() {
             >Acessar</Button>
           </form>
           <Link className={styles.text} href="/register">
-            Não possui una conta? Cadastre-se
+            Não possui uma conta? Cadastre-se
           </Link>
         </div>
       </div>
