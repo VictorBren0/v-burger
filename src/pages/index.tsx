@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>V-Burguer - Login</title>
+        <title>Faça o Login!</title>
       </Head>
       <div className={styles.containerCenter}>
         <Image src={logoImg} alt="Logo V-Burger" />

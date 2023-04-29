@@ -11,6 +11,7 @@ import { Button } from '../../components/ui/Button'
 import { AuthContext } from '../../contexts/AuthContext'
 import { toast } from "react-toastify"
 
+import { canSSRGuest } from "../../utils/canSSRGuest"
 
 import Link from "next/link"
 
@@ -81,3 +82,9 @@ export default function Register() {
         </>
     )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+    return {
+      props: {}
+    }
+  })
